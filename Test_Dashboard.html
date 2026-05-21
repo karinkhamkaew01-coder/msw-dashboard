@@ -31,7 +31,7 @@
                         <div class="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center border border-red-500/30"><i class="ph ph-shield-alert text-2xl text-red-400"></i></div>
                         <div>
                             <h1 class="text-xl font-bold text-white tracking-tight">MSW Chokchai <span class="text-xs text-amber-400 font-bold ml-2">PM Ver.22 TEST</span></h1>
-                            <p class="text-xs text-slate-400 font-medium">🕒 Data Refreshed: 20/05/2026 18:01:42</p>
+                            <p class="text-xs text-slate-400 font-medium">🕒 Data Refreshed: 21/05/2026 08:30:05</p>
                         </div>
                     </div>
                     <div class="p-1 bg-slate-800 rounded-xl border border-slate-700 flex gap-1">
@@ -43,8 +43,6 @@
         </nav>
 
         <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8">
-            
-            <!-- 🚨 กล่องคอขวดด่วนที่สุด -->
             <div class="glass-card border-l-8 border-red-500 bg-red-50/40 p-6">
                 <div class="flex items-center gap-3 mb-4">
                     <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-600 animate-pulse"><i class="ph ph-warning-diamond text-xl"></i></div>
@@ -63,7 +61,6 @@
                 </div>
             </div>
 
-            <!-- ช่องพิมพ์ค้นหาด่วน -->
             <div class="glass-card p-4 flex flex-col md:flex-row gap-4 items-center justify-between">
                 <div class="relative w-full md:w-96">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400"><i class="ph ph-magnifying-glass text-lg"></i></span>
@@ -71,7 +68,6 @@
                 </div>
             </div>
 
-            <!-- GIE Tab -->
             <div id="content-GIE" class="tab-content active space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-6" id="kpi-container-GIE"></div>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -84,7 +80,6 @@
                 </div>
             </div>
 
-            <!-- AED Tab -->
             <div id="content-AED" class="tab-content space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-6" id="kpi-container-AED"></div>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -112,10 +107,10 @@
                 let targetDate = new Date(dateStr);
                 if (isNaN(targetDate)) return { text: dateStr, isUrgent: false, type: 'normal', days: 999 };
                 const diffDays = Math.ceil((targetDate - TODAY) / (1000 * 60 * 60 * 24));
-                if (diffDays < 0) return { text: `Overdue \${Math.abs(diffDays)} d`, isUrgent: true, type: 'overdue', days: diffDays };
+                if (diffDays < 0) return { text: "Overdue " + Math.abs(diffDays) + " d", isUrgent: true, type: 'overdue', days: diffDays };
                 if (diffDays === 0) return { text: 'Today', isUrgent: true, type: 'urgent', days: 0 };
-                if (diffDays <= 14) return { text: `\${diffDays} days left`, isUrgent: true, type: 'warning', days: diffDays };
-                return { text: `\${diffDays} days`, isUrgent: false, type: 'normal', days: diffDays };
+                if (diffDays <= 14) return { text: diffDays + " days left", isUrgent: true, type: 'warning', days: diffDays };
+                return { text: diffDays + " days", isUrgent: false, type: 'normal', days: diffDays };
             }
 
             function updateUrgentCriticalBox() {
@@ -125,20 +120,20 @@
                 criticalItems.sort((a, b) => a.countdownInfo.days - b.countdownInfo.days);
 
                 if (criticalItems.length === 0) {
-                    urgentContainer.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-emerald-600 font-semibold"><i class="ph ph-check-circle mr-1"></i> ยอดเยี่ยม! ไม่พบปัญหาคอขวดจัดซื้อในรอบ 14 วันนี้</td></tr>`;
+                    urgentContainer.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-emerald-600 font-semibold"><i class="ph ph-check-circle mr-1"></i> ยอดเยี่ยม! ไม่พบปัญหาคอขวดจัดซื้อในรอบ 14 วันนี้</td></tr>';
                     return;
                 }
 
                 urgentContainer.innerHTML = criticalItems.map(d => {
                     let colorClass = d.countdownInfo.type === 'overdue' ? 'text-red-600 font-bold bg-red-50' : 'text-amber-600 font-semibold bg-amber-50/50';
-                    return `<tr class="\${colorClass} hover:bg-slate-100 transition-colors">
-                        <td class="p-3 pl-4 font-bold">\${d.pr_no}</td>
-                        <td class="p-3 font-medium text-slate-700"><div>\${d.item}</div><div class="text-[10px] text-slate-400"><i class="ph ph-tag"></i> แผนก: \${d.type_label} | \${d.area}</div></td>
-                        <td class="p-3 text-slate-600">\${d.req_date}</td>
-                        <td class="p-3 font-bold">\${d.countdownInfo.text}</td>
-                        <td class="p-3"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold border status-\${d.status}">\${d.status}</span></td>
-                        <td class="p-3 pr-4 text-slate-700 font-medium">\${d.pic}</td>
-                    </tr>`;
+                    return '<tr class="' + colorClass + ' hover:bg-slate-100 transition-colors">' +
+                        '<td class="p-3 pl-4 font-bold">' + d.pr_no + '</td>' +
+                        '<td class="p-3 font-medium text-slate-700"><div>' + d.item + '</div><div class="text-[10px] text-slate-400"><i class="ph ph-tag"></i> แผนก: ' + d.type_label + ' | ' + d.area + '</div></td>' +
+                        '<td class="p-3 text-slate-600">' + d.req_date + '</td>' +
+                        '<td class="p-3 font-bold">' + d.countdownInfo.text + '</td>' +
+                        '<td class="p-3"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold border status-' + d.status + '">' + d.status + '</span></td>' +
+                        '<td class="p-3 pr-4 text-slate-700 font-medium">' + d.pic + '</td>' +
+                        '</tr>';
                 }).join('');
             }
 
@@ -147,7 +142,7 @@
             }
 
             function renderTable(type) {
-                const tbody = document.getElementById(`table-body-\${type}`);
+                const tbody = document.getElementById("table-body-" + type);
                 const searchInput = document.getElementById('globalSearchInput');
                 const searchVal = searchInput ? searchInput.value.toLowerCase().trim() : '';
                 let items = processedData[type];
@@ -163,26 +158,26 @@
                 }
 
                 if (items.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-400">ไม่พบข้อมูลที่ค้นหา</td></tr>`;
+                    tbody.innerHTML = '<tr><td colspan="6" class="p-8 text-center text-slate-400">ไม่พบข้อมูลที่ค้นหา</td></tr>';
                     return;
                 }
 
                 tbody.innerHTML = items.map(d => {
-                    let cHtml = d.countdownInfo.isUrgent ? `<span class="text-red-500 font-bold">\${d.countdownInfo.text}</span>` : `<span class="text-slate-500">	ext{\${d.countdownInfo.text}}</span>`;
-                    return `<tr class="hover:bg-slate-50 transition-colors">
-                        <td class="p-4 pl-6 font-bold text-slate-800">\${d.pr_no}</td>
-                        <td class="p-4 font-medium text-slate-700"><div>\${d.item}</div><div class="text-[10px] text-slate-400">\${d.area}</div></td>
-                        <td class="p-4 text-slate-500">\${d.req_date}</td>
-                        <td class="p-4">\${cHtml}</td>
-                        <td class="p-4"><span class="px-2 py-1 rounded-full text-xs font-semibold status-\${d.status}">\${d.status}</span></td>
-                        <td class="p-4 pr-6 text-slate-600 font-medium">\${d.pic}</td>
-                    </tr>`;
+                    let cHtml = d.countdownInfo.isUrgent ? '<span class="text-red-500 font-bold">' + d.countdownInfo.text + '</span>' : '<span class="text-slate-500">' + d.countdownInfo.text + '</span>';
+                    return '<tr class="hover:bg-slate-50 transition-colors">' +
+                        '<td class="p-4 pl-6 font-bold text-slate-800">' + d.pr_no + '</td>' +
+                        '<td class="p-4 font-medium text-slate-700"><div>' + d.item + '</div><div class="text-[10px] text-slate-400">' + d.area + '</div></td>' +
+                        '<td class="p-4 text-slate-500">' + d.req_date + '</td>' +
+                        '<td class="p-4">' + cHtml + '</td>' +
+                        '<td class="p-4"><span class="px-2 py-1 rounded-full text-xs font-semibold status-' + d.status + '">' + d.status + '</span></td>' +
+                        '<td class="p-4 pr-6 text-slate-600 font-medium">' + d.pic + '</td>' +
+                        '</tr>';
                 }).join('');
             }
 
             function clearFilter(type) {
                 currentFilter[type] = { area: null, status: null };
-                document.getElementById(`clearFilterBtn-\${type}`).classList.add('hidden');
+                document.getElementById("clearFilterBtn-" + type).classList.add('hidden');
                 renderTable(type);
             }
 
@@ -202,7 +197,7 @@
                     areaStats[areaGrp][d.status]++;
                 });
 
-                document.getElementById(`kpi-container-\${type}`).innerHTML = `
+                document.getElementById("kpi-container-" + type).innerHTML = `
                     <div class="glass-card p-6 flex flex-col justify-between"><h3 class="text-xs font-bold text-slate-400 uppercase">Total Issued</h3><p class="text-2xl font-bold text-slate-800 mt-2">\${kpis.Total}</p></div>
                     <div class="glass-card p-6 flex flex-col justify-between border-b-4 border-emerald-500"><h3 class="text-xs font-bold text-emerald-600 uppercase">PO Issued</h3><p class="text-2xl font-bold text-slate-800 mt-2">\${kpis.Complete}</p></div>
                     <div class="glass-card p-6 flex flex-col justify-between border-b-4 border-blue-500"><h3 class="text-xs font-bold text-blue-600 uppercase">Processing</h3><p class="text-2xl font-bold text-slate-800 mt-2">\${kpis.Processing}</p></div>
@@ -221,7 +216,7 @@
                         onClick: (e, el) => {
                             if (el.length > 0) {
                                 currentFilter[type].area = areas[el[0].index];
-                                document.getElementById(`clearFilterBtn-\${type}`).classList.remove('hidden');
+                                document.getElementById("clearFilterBtn-" + type).classList.remove('hidden');
                                 renderTable(type);
                             }
                         }
