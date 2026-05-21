@@ -30,7 +30,7 @@
                         <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center border border-blue-500/30"><i class="ph ph-shield-alert text-2xl text-blue-400"></i></div>
                         <div>
                             <h1 class="text-xl font-bold text-white tracking-tight">MSW Chokchai <span class="text-xs text-amber-400 font-bold ml-2">PM Ver.22.5</span></h1>
-                            <p class="text-xs text-slate-400 font-medium">🕒 Data Refreshed: 21/05/2026 13:56:40</p>
+                            <p class="text-xs text-slate-400 font-medium">🕒 Data Refreshed: 21/05/2026 16:11:27</p>
                         </div>
                     </div>
                     <div class="p-1 bg-slate-800 rounded-xl border border-slate-700 flex gap-1">
@@ -99,7 +99,7 @@
                 </div>
                 <div class="glass-card overflow-hidden">
                     <div class="p-4 border-b border-slate-100 bg-white font-bold text-slate-800 text-sm">📋 PR Items Detail <span id="tableTitleArea-GIE" class="text-primary text-xs ml-2"></span></div>
-                    <div class="max-h-[400px] overflow-y-auto"><table class="w-full text-left text-xs border-collapse"><thead class="bg-slate-50 uppercase text-slate-500 font-bold border-b border-slate-200 sticky top-0 shadow-sm"><tr><th class="p-4 pl-6">PR Number</th><th class="p-4">Item Description</th><th class="p-4">Req. Date (Onsite)</th><th class="p-4">Countdown</th><th class="p-4">Status</th><th class="p-4 pr-6">PIC</th></tr></thead><tbody id="table-body-GIE" class="divide-y divide-slate-100 bg-white"></tbody></table></div>
+                    <div class="max-h-[400px] overflow-y-auto"><table class="w-full text-left text-xs border-collapse"><thead class="bg-slate-50 uppercase text-slate-500 font-bold border-b border-slate-200 sticky top-0 shadow-sm"><tr><th class="p-4 pl-6">PR Number</th><th class="p-4">Item Description</th><th class="p-4">Req. Date (Onsite)</th><th class="p-4">Mat Onsite as per PO</th><th class="p-4">Countdown</th><th class="p-4">Status</th><th class="p-4 pr-6">PIC</th></tr></thead><tbody id="table-body-GIE" class="divide-y divide-slate-100 bg-white"></tbody></table></div>
                 </div>
             </div>
 
@@ -120,13 +120,13 @@
                 </div>
                 <div class="glass-card overflow-hidden">
                     <div class="p-4 border-b border-slate-100 bg-white font-bold text-slate-800 text-sm">📋 PR Items Detail <span id="tableTitleArea-AED" class="text-primary text-xs ml-2"></span></div>
-                    <div class="max-h-[400px] overflow-y-auto"><table class="w-full text-left text-xs border-collapse"><thead class="bg-slate-50 uppercase text-slate-500 font-bold border-b border-slate-200 sticky top-0 shadow-sm"><tr><th class="p-4 pl-6">PR Number</th><th class="p-4">Item Description</th><th class="p-4">Req. Date (Onsite)</th><th class="p-4">Countdown</th><th class="p-4">Status</th><th class="p-4 pr-6">PIC</th></tr></thead><tbody id="table-body-AED" class="divide-y divide-slate-100 bg-white"></tbody></table></div>
+                    <div class="max-h-[400px] overflow-y-auto"><table class="w-full text-left text-xs border-collapse"><thead class="bg-slate-50 uppercase text-slate-500 font-bold border-b border-slate-200 sticky top-0 shadow-sm"><tr><th class="p-4 pl-6">PR Number</th><th class="p-4">Item Description</th><th class="p-4">Req. Date (Onsite)</th><th class="p-4">Mat Onsite as per PO</th><th class="p-4">Countdown</th><th class="p-4">Status</th><th class="p-4 pr-6">PIC</th></tr></thead><tbody id="table-body-AED" class="divide-y divide-slate-100 bg-white"></tbody></table></div>
                 </div>
             </div>
         </main>
 
         <script>
-            const rawData = { "AED": [], "GIE": [] };
+            const rawData = { "AED": [][0] || [], "GIE": [][0] || [] };
             const TODAY = new Date();
             let charts = {};
             let currentFilter = { "AED": { area: null, status: null }, "GIE": { area: null, status: null } };
@@ -193,7 +193,7 @@
                 }
 
                 if (items.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="6" class="p-8 text-center text-slate-400">ไม่พบข้อมูลที่ตรงเงื่อนไข</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="7" class="p-8 text-center text-slate-400">ไม่พบข้อมูลที่ตรงเงื่อนไข</td></tr>';
                     return;
                 }
 
@@ -203,6 +203,7 @@
                         '<td class="p-4 pl-6 font-bold text-slate-800">' + d.pr_no + '</td>' +
                         '<td class="p-4 font-medium text-slate-700"><div>' + d.item + '</div><div class="text-[10px] text-slate-400">' + d.area + '</div></td>' +
                         '<td class="p-4 text-slate-500">' + d.req_date + '</td>' +
+                        '<td class="p-4 text-slate-500">' + (d.po_date || '-') + '</td>' +
                         '<td class="p-4">' + cHtml + '</td>' +
                         '<td class="p-4"><span class="px-2 py-1 rounded-full text-xs font-semibold status-' + d.status + '">' + d.status + '</span></td>' +
                         '<td class="p-4 pr-6 text-slate-600 font-medium">' + d.pic + '</td>' +
