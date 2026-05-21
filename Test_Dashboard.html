@@ -8,9 +8,8 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
         <script src="https://unpkg.com/@phosphor-icons/web"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script>tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] }, colors: { slate: { 850: '#151f32', 900: '#0f172a' }, primary: '#3b82f6' } } } }</script>
         <style>
-            body { background-color: #f8fafc; color: #334155; }
+            body { background-color: #f8fafc; color: #334155; font-family: 'Inter', sans-serif; }
             .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border-radius: 16px; }
             .dark-glass { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
             .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
@@ -28,10 +27,10 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-20">
                     <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center border border-red-500/30"><i class="ph ph-shield-alert text-2xl text-red-400"></i></div>
+                        <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center border border-blue-500/30"><i class="ph ph-shield-alert text-2xl text-blue-400"></i></div>
                         <div>
-                            <h1 class="text-xl font-bold text-white tracking-tight">MSW Chokchai <span class="text-xs text-amber-400 font-bold ml-2">PM Ver.22 TEST</span></h1>
-                            <p class="text-xs text-slate-400 font-medium">🕒 Data Refreshed: 21/05/2026 08:30:05</p>
+                            <h1 class="text-xl font-bold text-white tracking-tight">MSW Chokchai <span class="text-xs text-amber-400 font-bold ml-2">PM Ver.22.5</span></h1>
+                            <p class="text-xs text-slate-400 font-medium">🕒 Data Refreshed: 21/05/2026 09:03:10</p>
                         </div>
                     </div>
                     <div class="p-1 bg-slate-800 rounded-xl border border-slate-700 flex gap-1">
@@ -43,25 +42,39 @@
         </nav>
 
         <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8">
-            <div class="glass-card border-l-8 border-red-500 bg-red-50/40 p-6">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-600 animate-pulse"><i class="ph ph-warning-diamond text-xl"></i></div>
-                    <div>
-                        <h2 class="text-lg font-bold text-red-800">🚨 PM Urgent Critical Action Item</h2>
-                        <p class="text-xs text-red-600 font-medium">ตรวจพบของที่หน้างานต้องการใช้ภายใน 14 วัน (หรือล่าช้ากว่ากำหนด) แต่ฝั่งจัดซื้อยังไม่เป็น ออก PO (Complete)</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="glass-card border-l-8 border-red-500 bg-red-50/20 p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center text-red-600"><i class="ph ph-crane text-sm"></i></div>
+                        <h2 class="text-sm font-bold text-red-900">🚨 GIE Critical Items (Onsite ใน 14 วัน)</h2>
+                    </div>
+                    <div class="max-h-[180px] overflow-y-auto border border-red-100 rounded-xl bg-white">
+                        <table class="w-full text-left border-collapse text-[11px]">
+                            <thead class="bg-red-50 text-red-800 font-bold sticky top-0">
+                                <tr><th class="p-2 pl-3">PR No</th><th class="p-2">Description</th><th class="p-2">Onsite</th><th class="p-2">Countdown</th><th class="p-2 pr-3">PIC</th></tr>
+                            </thead>
+                            <tbody id="gie-urgent-body" class="divide-y divide-red-50 text-slate-700"></tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="max-h-[220px] overflow-y-auto border border-red-100 rounded-xl bg-white">
-                    <table class="w-full text-left border-collapse text-xs">
-                        <thead class="bg-red-50 text-red-800 font-bold sticky top-0 shadow-sm">
-                            <tr><th class="p-3 pl-4">PR Number</th><th class="p-3">Item Description</th><th class="p-3">Onsite (Required)</th><th class="p-3">Countdown</th><th class="p-3">Status</th><th class="p-3 pr-4">PIC</th></tr>
-                        </thead>
-                        <tbody id="urgent-alert-body" class="divide-y divide-red-50"></tbody>
-                    </table>
+
+                <div class="glass-card border-l-8 border-amber-500 bg-amber-50/20 p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center text-amber-600"><i class="ph ph-gear-six text-sm"></i></div>
+                        <h2 class="text-sm font-bold text-amber-900">🚨 AED Critical Items (Onsite ใน 30 วัน)</h2>
+                    </div>
+                    <div class="max-h-[180px] overflow-y-auto border border-amber-100 rounded-xl bg-white">
+                        <table class="w-full text-left border-collapse text-[11px]">
+                            <thead class="bg-amber-50 text-amber-800 font-bold sticky top-0">
+                                <tr><th class="p-2 pl-3">PR No</th><th class="p-2">Description</th><th class="p-2">Onsite</th><th class="p-2">Countdown</th><th class="p-2 pr-3">PIC</th></tr>
+                            </thead>
+                            <tbody id="aed-urgent-body" class="divide-y divide-amber-50 text-slate-700"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
-            <div class="glass-card p-4 flex flex-col md:flex-row gap-4 items-center justify-between">
+            <div class="glass-card p-4">
                 <div class="relative w-full md:w-96">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400"><i class="ph ph-magnifying-glass text-lg"></i></span>
                     <input type="text" id="globalSearchInput" oninput="handleGlobalSearch()" placeholder="พิมพ์เลข PR, ชื่องาน, หรือชื่อ PIC เพื่อกรองตารางด่วน..." class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-primary focus:bg-white transition-all">
@@ -71,30 +84,48 @@
             <div id="content-GIE" class="tab-content active space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-6" id="kpi-container-GIE"></div>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="lg:col-span-2 glass-card p-6"><div class="flex justify-between items-center mb-6"><h2 class="text-lg font-bold text-slate-800 flex items-center gap-2"><i class="ph ph-chart-bar text-primary"></i> Area Status Comparison</h2><button onclick="clearFilter('GIE')" class="hidden px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded text-xs font-semibold" id="clearFilterBtn-GIE"><i class="ph ph-x"></i> Clear</button></div><div class="h-[280px]"><canvas id="barChart-GIE"></canvas></div></div>
-                    <div class="glass-card p-6 flex flex-col"><h2 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="ph ph-chart-donut text-primary"></i> Status Proportion</h2><div class="flex-1 h-[230px] flex justify-center items-center"><canvas id="pieChart-GIE"></canvas></div></div>
+                    <div class="lg:col-span-2 glass-card p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2"><i class="ph ph-chart-bar text-primary"></i> Area Status Comparison</h2>
+                            <button onclick="clearFilter('GIE')" class="hidden px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded text-xs font-semibold" id="clearFilterBtn-GIE"><i class="ph ph-x"></i> Clear</button>
+                        </div>
+                        <div class="h-[280px]"><canvas id="barChart-GIE"></canvas></div>
+                    </div>
+                    <div class="glass-card p-6 flex flex-col">
+                        <h2 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="ph ph-chart-donut text-primary"></i> Status Proportion</h2>
+                        <div class="flex-1 h-[230px] flex justify-center items-center"><canvas id="pieChart-GIE"></canvas></div>
+                    </div>
                 </div>
                 <div class="glass-card overflow-hidden">
-                    <div class="p-4 border-b border-slate-100 flex justify-between bg-white font-bold text-slate-800 text-sm"><span>📋 PR Items Detail <span id="tableTitleArea-GIE" class="text-primary text-xs ml-2"></span></span></div>
-                    <div class="max-h-[400px] overflow-y-auto"><table class="w-full text-left text-xs border-collapse"><thead class="bg-slate-50 uppercase text-slate-500 font-bold border-b border-slate-200 sticky top-0 shadow-sm"><tr><th class="p-4 pl-6">PR Number</th><th class="p-4">Item Description</th><th class="p-4">Req. Date</th><th class="p-4">Countdown</th><th class="p-4">Status</th><th class="p-4 pr-6">PIC</th></tr></thead><tbody id="table-body-GIE" class="divide-y divide-slate-100 bg-white"></tbody></table></div>
+                    <div class="p-4 border-b border-slate-100 bg-white font-bold text-slate-800 text-sm">📋 PR Items Detail <span id="tableTitleArea-GIE" class="text-primary text-xs ml-2"></span></div>
+                    <div class="max-h-[400px] overflow-y-auto"><table class="w-full text-left text-xs border-collapse"><thead class="bg-slate-50 uppercase text-slate-500 font-bold border-b border-slate-200 sticky top-0 shadow-sm"><tr><th class="p-4 pl-6">PR Number</th><th class="p-4">Item Description</th><th class="p-4">Req. Date (Onsite)</th><th class="p-4">Countdown</th><th class="p-4">Status</th><th class="p-4 pr-6">PIC</th></tr></thead><tbody id="table-body-GIE" class="divide-y divide-slate-100 bg-white"></tbody></table></div>
                 </div>
             </div>
 
             <div id="content-AED" class="tab-content space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-6" id="kpi-container-AED"></div>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="lg:col-span-2 glass-card p-6"><div class="flex justify-between items-center mb-6"><h2 class="text-lg font-bold text-slate-800 flex items-center gap-2"><i class="ph ph-chart-bar text-primary"></i> Area Status Comparison</h2><button onclick="clearFilter('AED')" class="hidden px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded text-xs font-semibold" id="clearFilterBtn-AED"><i class="ph ph-x"></i> Clear</button></div><div class="h-[280px]"><canvas id="barChart-AED"></canvas></div></div>
-                    <div class="glass-card p-6 flex flex-col"><h2 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="ph ph-chart-donut text-primary"></i> Status Proportion</h2><div class="flex-1 h-[230px] flex justify-center items-center"><canvas id="pieChart-AED"></canvas></div></div>
+                    <div class="lg:col-span-2 glass-card p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2"><i class="ph ph-chart-bar text-primary"></i> Area Status Comparison</h2>
+                            <button onclick="clearFilter('AED')" class="hidden px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded text-xs font-semibold" id="clearFilterBtn-AED"><i class="ph ph-x"></i> Clear</button>
+                        </div>
+                        <div class="h-[280px]"><canvas id="barChart-AED"></canvas></div>
+                    </div>
+                    <div class="glass-card p-6 flex flex-col">
+                        <h2 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="ph ph-chart-donut text-primary"></i> Status Proportion</h2>
+                        <div class="flex-1 h-[230px] flex justify-center items-center"><canvas id="pieChart-AED"></canvas></div>
+                    </div>
                 </div>
                 <div class="glass-card overflow-hidden">
-                    <div class="p-4 border-b border-slate-100 flex justify-between bg-white font-bold text-slate-800 text-sm"><span>📋 PR Items Detail <span id="tableTitleArea-AED" class="text-primary text-xs ml-2"></span></span></div>
-                    <div class="max-h-[400px] overflow-y-auto"><table class="w-full text-left text-xs border-collapse"><thead class="bg-slate-50 uppercase text-slate-500 font-bold border-b border-slate-200 sticky top-0 shadow-sm"><tr><th class="p-4 pl-6">PR Number</th><th class="p-4">Item Description</th><th class="p-4">Req. Date</th><th class="p-4">Countdown</th><th class="p-4">Status</th><th class="p-4 pr-6">PIC</th></tr></thead><tbody id="table-body-AED" class="divide-y divide-slate-100 bg-white"></tbody></table></div>
+                    <div class="p-4 border-b border-slate-100 bg-white font-bold text-slate-800 text-sm">📋 PR Items Detail <span id="tableTitleArea-AED" class="text-primary text-xs ml-2"></span></div>
+                    <div class="max-h-[400px] overflow-y-auto"><table class="w-full text-left text-xs border-collapse"><thead class="bg-slate-50 uppercase text-slate-500 font-bold border-b border-slate-200 sticky top-0 shadow-sm"><tr><th class="p-4 pl-6">PR Number</th><th class="p-4">Item Description</th><th class="p-4">Req. Date (Onsite)</th><th class="p-4">Countdown</th><th class="p-4">Status</th><th class="p-4 pr-6">PIC</th></tr></thead><tbody id="table-body-AED" class="divide-y divide-slate-100 bg-white"></tbody></table></div>
                 </div>
             </div>
         </main>
 
         <script>
-            const rawData = { "AED": [{"area": "A1_Receiving and Feeding", "pr_no": "PR-MSW04-AED-ME-028 Leachate Bucket", "item": "Leachate Bucket", "req_date": "-", "po_date": "-", "status": "Pending", "pic": "Unassigned", "update_detail": "No Remark", "vendor": "-", "po_no": "-"}, {"area": "A1_Receiving and Feeding", "pr_no": "PR-MSW04-AED-ME-029 Leachate Sluice Gate", "item": "Leachate Sluice Gate", "req_date": "-", "po_date": "-", "status": "Pending", "pic": "Unassigned", "update_detail": "No Remark", "vendor": "-", "po_no": "-"}, {"area": "A1_Receiving and Feeding", "pr_no": "PR-MSW04-AED-DD-001 Dumping Door", "item": "Dumping Door", "req_date": "2026-07-01", "po_date": "-", "status": "Pending", "pic": "Unassigned", "update_detail": "No Remark", "vendor": "-", "po_no": "-"}, {"area": "A2_Incinerator System", "pr_no": "PR-MSW04-AED-ME-007_Boiler Feed Pump", "item": "Boiler Feed Pump", "req_date": "-", "po_date": "-", "status": "Complete", "pic": "Max", "update_detail": "No Remark", "vendor": "KSB", "po_no": "-"}, {"area": "A2_Incinerator System", "pr_no": "PR-MSW04-AED-ME-019 Overhead Crane For Service Turbine", "item": "Overhead Crane For Service Turbine", "req_date": "-", "po_date": "-", "status": "Complete", "pic": "Max", "update_detail": "No Remark", "vendor": "LGH", "po_no": "-"}, {"area": "A2_Incinerator System", "pr_no": "PR-MSW04-AED-ME-033 PA Duct Grat Bar Zone", "item": "PA Duct Grat Bar Zone", "req_date": "-", "po_date": "-", "status": "Pending", "pic": "Max", "update_detail": "No Remark", "vendor": "-", "po_no": "-"}, {"area": "A2_Incinerator System", "pr_no": "PR-MSW04-AED-ME-034 PA Duct to Air Pre Heater", "item": "PA Duct to Air Pre Heater", "req_date": "-", "po_date": "-", "status": "Pending", "pic": "Max", "update_detail": "No Remark", "vendor": "-", "po_no": "-"}, {"area": "A2_Incinerator System", "pr_no": "PR-MSW04-AED-ME-042_Structure and Stair for Deaerator", "item": "Structure and Stair for Deaerator", "req_date": "-", "po_date": "-", "status": "Pending", "pic": "Max", "update_detail": "No Remark", "vendor": "-", "po_no": "-"}, {"area": "A2_Incinerator System", "pr_no": "PR-MSW04-AED-ME-043_Grating-Step and Handrail-Ladder for Deaerator", "item": "Grating-Step and Handrail-Ladder for Deaerator", "req_date": "-", "po_date": "-", "status": "Pending", "pic": "Max", "update_detail": "No Remark", "vendor": "-", "po_no": "-"}, {"area": "A2_Incinerator System", "pr_no": "PR-MSW04-AED-ME-045_Pipe Rack", "item": "Pipe Rack", "req_date": "-", "po_date": "-", "status": "Pending", "pic": "Max", "update_detail": "No Remark", "vendor": "-", "po_no": "-"}, {"area": "A2_Incinerator System", "pr_no": "PR-MSW04-AED-ME-047_Pipe Rack 04", "item": "Pipe Rack 04", "req_date": "-", "po_date": "-", "status": "Pending", "pic": "Max", "update_detail": "No Remark", "vendor": "-", "po_no": "-"}, {"area": "A2_Incinerator System", "pr_no": "PR-MSW-AED-ME-050 Boiler installation", "item": "Boiler Installation", "req_date": "-", "po_date": "-", "status": "Pending", "pic": "Max", "update_detail": "No Remark", "vendor": "-", "po_no": "-"}, {"area": "A2_Incinerator System", "pr_no": "PR-MSW-AED-ME-051 Tower Crane", "item": "Tower Crane", "req_date": "-", "po_date": "-", "status": "Complete", "pic": "Jamsai", "update_detail": "No Remark", "vendor": "-", "po_no": "-"}, {"area": "A6_Water Treatment Plant", "pr_no": "PR-MSW04-AED-ME-008_Demineralized Water Plant System", "item": "Demineralized Water Plant System", "req_date": "-", "po_date": "2026-11-01", "status": "Complete", "pic": "Max", "update_detail": "No Remark", "vendor": "HDZ", "po_no": "-"}, {"area": "A6_Water Treatment Plant", "pr_no": "PR-MSW04-AED-ME-006_Demineralized Water Pumps", "item": "Demineralized Water Pumps", "req_date": "-", "po_date": "-", "status": "Pending", "pic": "Unassigned", "update_detail": "No Remark", "vendor": "-", "po_no": "-"}, {"area": "A6_Water Treatment Plant", "pr_no": "PR-MSW04-AED-ME-010_ Multimedia Filter Tank", "item": "Multimedia Filter Tank", "req_date": "-", "po_date": "-", "status": "Pending", "pic": "Unassigned", "update_detail": "No Remark", "vendor": "-", "po_no": "-"}, {"area": "A6_Water Treatment Plant", "pr_no": "PR-MSW04-AED-ME-011 FRP Tank", "item": "FRP Tank", "req_date": "2026-06-15", "po_date": "-", "status": "Complete", "pic": "Unassigned", "update_detail": "No Remark", "vendor": "Clear World", "po_no": "-"}, {"area": "A6_Water Treatment Plant", "pr_no": "PR-MSW04-AED-ME-041_Vacuum Pump", "item": "Vacuum Pump", "req_date": "-", "po_date": "-", "status": "Processing", "pic": "Unassigned", "update_detail": "No Remark", "vendor": "-", "po_no": "-"}, {"area": "A7_Cooling Tower System", "pr_no": "PR-MSW04-AED-CT-001_Cooling tower", "item": "Cooling tower", "req_date": "-", "po_date": "-", "status": "Processing", "pic": "First", "update_detail": "No Remark", "vendor": "Seagull", "po_no": "-"}, {"area": "A7_Cooling Tower System", "pr_no": "PR-MSW04-AED-ME-009_Cooling Water Pump", "item": "Cooling Water Pump", "req_date": "-", "po_date": "-", "status": "Processing", "pic": "Unassigned", "update_detail": "No Remark", "vendor": "-", "po_no": "-"}, {"area": "A11_Electrical System", "pr_no": "PR-MSW04-AED-EE-001_TRANSFORMER", "item": "TRANSFORMER", "req_date": "-", "po_date": "-", "status": "Complete", "pic": "Max", "update_detail": "No Remark", "vendor": "-", "po_no": "-"}, {"area": "A11_Electrical System", "pr_no": "PR-MSW04-AED-EE-002_DIESEL GENERATOR 500kVA", "item": "DIESEL GENERATOR 500kVA", "req_date": "-", "po_date": "-", "status": "Complete", "pic": "Max", "update_detail": "No Remark", "vendor": "-", "po_no": "-"}, {"area": "A11_Electrical System", "pr_no": "PR-MSW04-AED-EE-003_AC UPS AND DC CHARGER", "item": "AC UPS AND DC CHARGER", "req_date": "-", "po_date": "-", "status": "Complete", "pic": "May", "update_detail": "No Remark", "vendor": "VICTRON", "po_no": "-"}, {"area": "A11_Electrical System", "pr_no": "PR-MSW04-AED-EE-004_11kV&22kV SWITCHGEAR", "item": "11kV&22kV SWITCHGEAR", "req_date": "-", "po_date": "2026-07-30", "status": "Complete", "pic": "Max", "update_detail": "No Remark", "vendor": "ASINE", "po_no": "-"}, {"area": "B1_Owner scope", "pr_no": "PR-MSW04-ABP-EE-001_Transmission line zone4", "item": "Transmission line Zone4", "req_date": "-", "po_date": "-", "status": "Complete", "pic": "Unassigned", "update_detail": "No Remark", "vendor": "VAP", "po_no": "-"}, {"area": "B1_Owner scope", "pr_no": "PR-MSW04-ABP-EE-002_Transmission line zone1-3&4", "item": "Transmission line Zone1-3&4", "req_date": "2026-06-01", "po_date": "-", "status": "Processing", "pic": "Unassigned", "update_detail": "No Remark", "vendor": "VAP", "po_no": "-"}, {"area": "B2_\u0e0b\u0e37\u0e49\u0e2d\u0e15\u0e48\u0e32\u0e07\u0e1b\u0e23\u0e30\u0e40\u0e17\u0e28", "pr_no": "PR-MSW04-ASD-EE-001_HTC EE Upgrade and Supervisor", "item": "HTC EE Upgrade and Supervisor", "req_date": "2026-07-31", "po_date": "-", "status": "Processing", "pic": "First", "update_detail": "No Remark", "vendor": "-", "po_no": "-"}], "GIE": [{"area": "7_MAIN BUILDING", "pr_no": "PR-MSW04-GIE-CV-7.4-001.pdf", "item": "\u0e40\u0e0a\u0e48\u0e32\u0e19\u0e31\u0e48\u0e07\u0e23\u0e49\u0e32\u0e19\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a BOILER FOUNDATION   EL 12.80 m.", "req_date": "2026-05-14", "po_date": "-", "status": "Complete", "pic": "\u0e1b\u0e23\u0e35\u0e0a\u0e0d\u0e32\u0e19\u0e31\u0e19\u0e15\u0e4c", "update_detail": "PO", "vendor": "\u0e44\u0e17\u0e22 \u0e04\u0e2d\u0e19\u0e2a\u0e4c \u0e41\u0e2d\u0e19\u0e14\u0e4c \u0e1a\u0e34\u0e25\u0e14\u0e34\u0e49\u0e07 \u0e40\u0e21\u0e19\u0e39\u0e41\u0e1f\u0e47\u0e04\u0e40\u0e08\u0e2d\u0e23\u0e34\u0e48\u0e07 \u0e08\u0e33\u0e01\u0e31\u0e14 (\u0e21\u0e2b\u0e32\u0e0a\u0e19)", "po_no": "PO2605-00027"}, {"area": "7_MAIN BUILDING", "pr_no": "PR-MSW04-GIE-CV-07-0002", "item": "\u0e40\u0e0a\u0e48\u0e32\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e08\u0e31\u0e01\u0e23\u0e23\u0e16\u0e1a\u0e14 3 \u0e15\u0e31\u0e19 \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a MSW PIT/Boiler", "req_date": "2026-05-16", "po_date": "-", "status": "Complete", "pic": "\u0e40\u0e02\u0e21\u0e08\u0e34\u0e23\u0e32", "update_detail": "PO", "vendor": "\u0e2b\u0e49\u0e32\u0e07\u0e2b\u0e38\u0e49\u0e19\u0e2a\u0e48\u0e27\u0e19\u0e08\u0e33\u0e01\u0e31\u0e14 \u0e40\u0e0a\u0e34\u0e14\u0e1e\u0e07\u0e29\u0e4c\u0e01\u0e32\u0e23\u0e42\u0e22\u0e18\u0e32", "po_no": "GIE(MSW CHC)-PO2605-00031"}, {"area": "25_Site tempo", "pr_no": "PR-MSW03-GIE-CV-001.pdf", "item": "\u0e2d\u0e38\u0e1b\u0e01\u0e23\u0e13\u0e4c\u0e44\u0e1f\u0e1f\u0e49\u0e32\u0e0a\u0e31\u0e48\u0e27\u0e04\u0e23\u0e32\u0e27\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a Tower crane", "req_date": "2026-05-12", "po_date": "2026-05-13", "status": "Complete", "pic": "Max", "update_detail": "PO", "vendor": "135 International", "po_no": "GIE(MSW CHC)-PO2605-00020"}, {"area": "25_Site tempo", "pr_no": "PR-MSW04-GIE-CV-002", "item": "\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e08\u0e31\u0e01\u0e23\u0e40\u0e04\u0e23\u0e1925TON, 60TON  \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e15\u0e34\u0e14\u0e15\u0e31\u0e49\u0e07 Tower Crane", "req_date": "2026-05-14", "po_date": "2026-05-15", "status": "Complete", "pic": "\u0e1b\u0e23\u0e35\u0e0a\u0e0d\u0e32\u0e19\u0e31\u0e19\u0e15\u0e4c", "update_detail": "PO", "vendor": "\u0e2b\u0e49\u0e32\u0e07\u0e2b\u0e38\u0e49\u0e19\u0e2a\u0e48\u0e27\u0e19\u0e08\u0e33\u0e01\u0e31\u0e14 \u0e42\u0e0a\u0e04\u0e0a\u0e31\u0e22\u0e40\u0e04\u0e23\u0e19 (\u0e2a\u0e33\u0e19\u0e31\u0e01\u0e07\u0e32\u0e19\u0e43\u0e2b\u0e0d\u0e48)", "po_no": "GIE(MSW CHC)-PO2605-00025"}, {"area": "25_Site tempo", "pr_no": "PR-MSW04-GIE-CV-003", "item": "\u0e2d\u0e38\u0e1b\u0e01\u0e23\u0e13\u0e4c\u0e44\u0e1f\u0e1f\u0e49\u0e32\u0e0a\u0e31\u0e48\u0e27\u0e04\u0e23\u0e32\u0e27\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a Tower crane #2", "req_date": "2026-05-15", "po_date": "2026-05-15", "status": "Complete", "pic": "PAO", "update_detail": "PO", "vendor": "SPP Concrete", "po_no": "GIE(MSW CHC)-PO2605-00029"}] };
+            const rawData = { "AED": [], "GIE": [] };
             const TODAY = new Date();
             let charts = {};
             let currentFilter = { "AED": { area: null, status: null }, "GIE": { area: null, status: null } };
@@ -109,32 +140,35 @@
                 const diffDays = Math.ceil((targetDate - TODAY) / (1000 * 60 * 60 * 24));
                 if (diffDays < 0) return { text: "Overdue " + Math.abs(diffDays) + " d", isUrgent: true, type: 'overdue', days: diffDays };
                 if (diffDays === 0) return { text: 'Today', isUrgent: true, type: 'urgent', days: 0 };
-                if (diffDays <= 14) return { text: diffDays + " days left", isUrgent: true, type: 'warning', days: diffDays };
-                return { text: diffDays + " days", isUrgent: false, type: 'normal', days: diffDays };
+                return { text: diffDays + " days", isUrgent: true, type: 'warning', days: diffDays };
             }
 
-            function updateUrgentCriticalBox() {
-                const urgentContainer = document.getElementById('urgent-alert-body');
-                let allCombined = [...processedData['GIE'], ...processedData['AED']];
-                let criticalItems = allCombined.filter(item => item.status !== 'Complete' && item.countdownInfo.isUrgent);
-                criticalItems.sort((a, b) => a.countdownInfo.days - b.countdownInfo.days);
-
-                if (criticalItems.length === 0) {
-                    urgentContainer.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-emerald-600 font-semibold"><i class="ph ph-check-circle mr-1"></i> ยอดเยี่ยม! ไม่พบปัญหาคอขวดจัดซื้อในรอบ 14 วันนี้</td></tr>';
-                    return;
+            function updateUrgentBoxes() {
+                const gieUrgentBox = document.getElementById('gie-urgent-body');
+                let gieCritical = processedData['GIE'].filter(item => item.status !== 'Complete' && (item.countdownInfo.type === 'overdue' || item.countdownInfo.days <= 14));
+                gieCritical.sort((a,b) => a.countdownInfo.days - b.countdownInfo.days);
+                
+                if(gieCritical.length === 0) {
+                    gieUrgentBox.innerHTML = '<tr><td colspan="5" class="p-3 text-center text-emerald-600 font-medium">✅ ไม่มีรายการวิกฤต (14 วัน)</td></tr>';
+                } else {
+                    gieUrgentBox.innerHTML = gieCritical.map(d => {
+                        let bg = d.countdownInfo.type === 'overdue' ? 'bg-red-50 text-red-600 font-bold' : '';
+                        return '<tr class="' + bg + '"><td class="p-2 pl-3 font-bold">' + d.pr_no + '</td><td class="p-2">' + d.item + '</td><td class="p-2">' + d.req_date + '</td><td class="p-2 font-bold">' + d.countdownInfo.text + '</td><td class="p-2 pr-3 font-medium">' + d.pic + '</td></tr>';
+                    }).join('');
                 }
 
-                urgentContainer.innerHTML = criticalItems.map(d => {
-                    let colorClass = d.countdownInfo.type === 'overdue' ? 'text-red-600 font-bold bg-red-50' : 'text-amber-600 font-semibold bg-amber-50/50';
-                    return '<tr class="' + colorClass + ' hover:bg-slate-100 transition-colors">' +
-                        '<td class="p-3 pl-4 font-bold">' + d.pr_no + '</td>' +
-                        '<td class="p-3 font-medium text-slate-700"><div>' + d.item + '</div><div class="text-[10px] text-slate-400"><i class="ph ph-tag"></i> แผนก: ' + d.type_label + ' | ' + d.area + '</div></td>' +
-                        '<td class="p-3 text-slate-600">' + d.req_date + '</td>' +
-                        '<td class="p-3 font-bold">' + d.countdownInfo.text + '</td>' +
-                        '<td class="p-3"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold border status-' + d.status + '">' + d.status + '</span></td>' +
-                        '<td class="p-3 pr-4 text-slate-700 font-medium">' + d.pic + '</td>' +
-                        '</tr>';
-                }).join('');
+                const aedUrgentBox = document.getElementById('aed-urgent-body');
+                let aedCritical = processedData['AED'].filter(item => item.status !== 'Complete' && (item.countdownInfo.type === 'overdue' || item.countdownInfo.days <= 30));
+                aedCritical.sort((a,b) => a.countdownInfo.days - b.countdownInfo.days);
+                
+                if(aedCritical.length === 0) {
+                    aedUrgentBox.innerHTML = '<tr><td colspan="5" class="p-3 text-center text-emerald-600 font-medium">✅ ไม่มีรายการวิกฤต (30 วัน)</td></tr>';
+                } else {
+                    aedUrgentBox.innerHTML = aedCritical.map(d => {
+                        let bg = d.countdownInfo.type === 'overdue' ? 'bg-red-50 text-red-600 font-bold' : '';
+                        return '<tr class="' + bg + '"><td class="p-2 pl-3 font-bold">' + d.pr_no + '</td><td class="p-2">' + d.item + '</td><td class="p-2">' + d.req_date + '</td><td class="p-2 font-bold">' + d.countdownInfo.text + '</td><td class="p-2 pr-3 font-medium">' + d.pic + '</td></tr>';
+                    }).join('');
+                }
             }
 
             function handleGlobalSearch() {
@@ -158,12 +192,12 @@
                 }
 
                 if (items.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="6" class="p-8 text-center text-slate-400">ไม่พบข้อมูลที่ค้นหา</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="6" class="p-8 text-center text-slate-400">ไม่พบข้อมูลที่ตรงเงื่อนไข</td></tr>';
                     return;
                 }
 
                 tbody.innerHTML = items.map(d => {
-                    let cHtml = d.countdownInfo.isUrgent ? '<span class="text-red-500 font-bold">' + d.countdownInfo.text + '</span>' : '<span class="text-slate-500">' + d.countdownInfo.text + '</span>';
+                    let cHtml = d.countdownInfo.days <= 14 || d.countdownInfo.type === 'overdue' ? '<span class="text-red-500 font-bold">' + d.countdownInfo.text + '</span>' : '<span class="text-slate-500">' + d.countdownInfo.text + '</span>';
                     return '<tr class="hover:bg-slate-50 transition-colors">' +
                         '<td class="p-4 pl-6 font-bold text-slate-800">' + d.pr_no + '</td>' +
                         '<td class="p-4 font-medium text-slate-700"><div>' + d.item + '</div><div class="text-[10px] text-slate-400">' + d.area + '</div></td>' +
@@ -181,6 +215,12 @@
                 renderTable(type);
             }
 
+            function filterByStatus(type, statusName) {
+                currentFilter[type].status = statusName;
+                document.getElementById("clearFilterBtn-" + type).classList.remove('hidden');
+                renderTable(type);
+            }
+
             function renderDashboard(type) {
                 const data = rawData[type];
                 let kpis = { Complete: 0, Processing: 0, Negotiate: 0, Pending: 0, Total: data.length };
@@ -188,7 +228,6 @@
                 
                 data.forEach(d => {
                     d.countdownInfo = calculateCountdown(d.req_date, d.status);
-                    d.type_label = type;
                     processedData[type].push(d);
                     kpis[d.status]++;
                     
@@ -197,12 +236,10 @@
                     areaStats[areaGrp][d.status]++;
                 });
 
-                document.getElementById("kpi-container-" + type).innerHTML = `
-                    <div class="glass-card p-6 flex flex-col justify-between"><h3 class="text-xs font-bold text-slate-400 uppercase">Total Issued</h3><p class="text-2xl font-bold text-slate-800 mt-2">\${kpis.Total}</p></div>
-                    <div class="glass-card p-6 flex flex-col justify-between border-b-4 border-emerald-500"><h3 class="text-xs font-bold text-emerald-600 uppercase">PO Issued</h3><p class="text-2xl font-bold text-slate-800 mt-2">\${kpis.Complete}</p></div>
-                    <div class="glass-card p-6 flex flex-col justify-between border-b-4 border-blue-500"><h3 class="text-xs font-bold text-blue-600 uppercase">Processing</h3><p class="text-2xl font-bold text-slate-800 mt-2">\${kpis.Processing}</p></div>
-                    <div class="glass-card p-6 flex flex-col justify-between border-b-4 border-red-500"><h3 class="text-xs font-bold text-red-600 uppercase">Pending Action</h3><p class="text-2xl font-bold text-red-600 mt-2">\${kpis.Pending}</p></div>
-                `;
+                document.getElementById("kpi-container-" + type).innerHTML = '<div onclick="clearFilter(\'' + type + '\')" class="cursor-pointer glass-card p-4 flex flex-col justify-between hover:border-slate-400 transition-all"><h3 class="text-xs font-bold text-slate-400 uppercase">Total Issued</h3><p class="text-2xl font-bold text-slate-800 mt-1">' + kpis.Total + '</p></div>' +
+                    '<div onclick="filterByStatus(\'' + type + '\', \'Complete\')" class="cursor-pointer glass-card p-4 flex flex-col justify-between border-b-4 border-emerald-500 hover:shadow-md transition-all"><h3 class="text-xs font-bold text-emerald-600 uppercase">PO Issued</h3><p class="text-2xl font-bold text-slate-800 mt-1">' + kpis.Complete + '</p></div>' +
+                    '<div onclick="filterByStatus(\'' + type + '\', \'Processing\')" class="cursor-pointer glass-card p-4 flex flex-col justify-between border-b-4 border-blue-500 hover:shadow-md transition-all"><h3 class="text-xs font-bold text-blue-600 uppercase">Processing</h3><p class="text-2xl font-bold text-slate-800 mt-1">' + kpis.Processing + '</p></div>' +
+                    '<div onclick="filterByStatus(\'' + type + '\', \'Pending\')" class="cursor-pointer glass-card p-4 flex flex-col justify-between border-b-4 border-red-500 hover:shadow-md transition-all"><h3 class="text-xs font-bold text-red-600 uppercase">Pending Action</h3><p class="text-2xl font-bold text-red-600 mt-1">' + kpis.Pending + '</p></div>';
 
                 const areas = Object.keys(areaStats);
                 charts['bar-' + type] = new Chart(document.getElementById('barChart-' + type).getContext('2d'), {
@@ -224,7 +261,7 @@
                 });
 
                 charts['pie-' + type] = new Chart(document.getElementById('pieChart-' + type).getContext('2d'), {
-                    type: 'doughnut', data: { labels: ['Complete', 'Processing', 'Negotiate', 'Pending'], datasets: [{ data: [kpis.Complete, kpis.Processing, kpis.Negotiate, kpis.Pending], backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#e11d48'] }] },
+                    type: 'doughnut', data: { labels: ['Complete', 'Processing', 'Negotiate', 'Pending'], datasets: [{ data: [kpis.Complete, kpis.Processing, kpis.Negotiate, kpis.Pending], backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#e11d48'] }]},
                     options: { responsive: true, maintainAspectRatio: false, cutout: '70%' }
                 });
 
@@ -241,7 +278,7 @@
             }
 
             document.addEventListener('DOMContentLoaded', () => { 
-                renderDashboard('GIE'); renderDashboard('AED'); updateUrgentCriticalBox();
+                renderDashboard('GIE'); renderDashboard('AED'); updateUrgentBoxes();
             });
         </script>
     </body>
