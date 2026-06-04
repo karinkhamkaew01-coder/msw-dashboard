@@ -90,7 +90,7 @@
                 <div class="flex items-center gap-6">
                     <div class="text-right hidden lg:block">
                         <p class="text-[10px] text-slate-400 font-bold tracking-wider uppercase">Last Auto Sync</p>
-                        <p class="text-sm text-emerald-400 font-black tracking-wide flex items-center gap-1.5 justify-end"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block animate-pulse"></span>04/06/2026 09:15:40</p>
+                        <p class="text-sm text-emerald-400 font-black tracking-wide flex items-center gap-1.5 justify-end"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block animate-pulse"></span>04/06/2026 09:18:48</p>
                     </div>
                     <div class="p-1 bg-slate-900 rounded-xl border border-slate-800 flex gap-1">
                         <button onclick="switchTab('GIE')" id="tab-GIE" class="px-4 py-2.5 text-xs font-bold rounded-lg transition-all duration-300 text-white bg-indigo-600 shadow-md active-glow-GIE flex items-center gap-1.5"><i class="ph-bold ph-crane text-sm"></i> งานโยธา (GIE)</button>
@@ -102,7 +102,7 @@
         </div>
     </nav>
     <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 gap-6">
             <div class="glass-card border-l-[6px] border-red-500 bg-gradient-to-r from-red-50/10 to-transparent p-6">
                 <div class="flex items-center justify-between mb-4">
                     <div class="flex items-center gap-2.5">
@@ -500,7 +500,7 @@
                     let bg = d.countdownInfo.type === 'overdue' ? 'bg-red-50/80 text-red-700 font-bold border-l-2 border-red-500' : 'hover:bg-slate-50/50';
                     return '<tr class="' + bg + ' cursor-pointer transition-colors border-b border-slate-100" onclick="openModal(\'GIE\', ' + d.originalIndex + ')">' +
                         '<td class="p-2 pl-3 font-black text-slate-800 text-[10px] whitespace-nowrap">' + d.pr_no + '</td>' +
-                        '<td class="p-2 font-semibold text-slate-700 text-[10px] truncate max-w-[90px] xl:max-w-[120px]" title="' + d.item.replace(/"/g, '&quot;') + '">' + d.item + '</td>' +
+                        '<td class="p-2 font-semibold text-slate-700 text-[10px] truncate max-w-[180px] md:max-w-[350px] lg:max-w-[600px]" title="' + d.item.replace(/"/g, '&quot;') + '">' + d.item + '</td>' +
                         '<td class="p-2 text-slate-500 text-[10px] whitespace-nowrap">' + d.req_date + '</td>' +
                         '<td class="p-2 pr-3 font-black text-[10px] whitespace-nowrap">' + d.countdownInfo.text + '</td></tr>';
                 }).join('');
@@ -515,7 +515,7 @@
                     let bg = d.countdownInfo.type === 'overdue' ? 'bg-red-50/80 text-red-700 font-bold border-l-2 border-red-500' : 'hover:bg-slate-50/50';
                     return '<tr class="' + bg + ' cursor-pointer transition-colors border-b border-slate-100" onclick="openModal(\'AED_SITE\', ' + d.originalIndex + ')">' +
                         '<td class="p-2 pl-3 font-black text-slate-800 text-[10px] whitespace-nowrap">' + d.pr_no + '</td>' +
-                        '<td class="p-2 font-semibold text-slate-700 text-[10px] truncate max-w-[90px] xl:max-w-[120px]" title="' + d.item.replace(/"/g, '&quot;') + '">' + d.item + '</td>' +
+                        '<td class="p-2 font-semibold text-slate-700 text-[10px] truncate max-w-[180px] md:max-w-[350px] lg:max-w-[600px]" title="' + d.item.replace(/"/g, '&quot;') + '">' + d.item + '</td>' +
                         '<td class="p-2 text-slate-500 text-[10px] whitespace-nowrap">' + d.req_date + '</td>' +
                         '<td class="p-2 pr-3 font-black text-[10px] whitespace-nowrap">' + d.countdownInfo.text + '</td></tr>';
                 }).join('');
@@ -530,7 +530,7 @@
                     let bg = d.countdownInfo.type === 'overdue' ? 'bg-red-50/80 text-red-700 font-bold border-l-2 border-red-500' : 'hover:bg-slate-50/50';
                     return '<tr class="' + bg + ' cursor-pointer transition-colors border-b border-slate-100" onclick="openModal(\'AED\', ' + d.originalIndex + ')">' +
                         '<td class="p-2 pl-3 font-black text-slate-800 text-[10px] whitespace-nowrap">' + d.pr_no + '</td>' +
-                        '<td class="p-2 font-semibold text-slate-700 text-[10px] truncate max-w-[90px] xl:max-w-[120px]" title="' + d.item.replace(/"/g, '&quot;') + '">' + d.item + '</td>' +
+                        '<td class="p-2 font-semibold text-slate-700 text-[10px] truncate max-w-[180px] md:max-w-[350px] lg:max-w-[600px]" title="' + d.item.replace(/"/g, '&quot;') + '">' + d.item + '</td>' +
                         '<td class="p-2 text-slate-500 text-[10px] whitespace-nowrap">' + d.req_date + '</td>' +
                         '<td class="p-2 pr-3 font-black text-[10px] whitespace-nowrap">' + d.countdownInfo.text + '</td></tr>';
                 }).join('');
